@@ -1,0 +1,573 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Grid Template for Bootstrap</title>
+
+	 <!--<link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dojox/grid/resources/Grid.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dojox/grid/resources/claroGrid.css">-->
+
+    <!-- Need this for tab container-->
+    <!--<link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> -->
+	
+     
+
+	<link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
+	<link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/esri/esri.css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+      <script src="http://code.highcharts.com/stock/highstock.js"></script>
+      <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+      <script src="./js/functions.js"></script>
+	
+    <!-- Bootstrap core CSS -->
+    <!--<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="grid.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    
+	<link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+    <script src="https://js.arcgis.com/3.16/"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <style>
+
+      .hidden{
+
+        display:none;
+      }
+
+
+  .row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.dropdown-menu{
+  min-width:360px;
+}
+.marginButton {
+    margin-top: 0px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+}
+.makeWhite{
+background-color: white; 
+border:none;
+}
+
+      #layerListPane {
+          width: 25%;
+      }
+
+      .esriLayer {
+          background-color: #fff;
+      }
+
+      .esriLayerList .esriList {
+          border-top: none;
+      }
+
+      .esriLayerList .esriTitle {
+          background-color: #fff;
+          border-bottom: none;
+      }
+
+      .esriLayerList .esriList ul {
+          background-color: #fff;
+      }
+      /* Dijit overrides */
+      .calcite .esriBasemapGalleryNode {
+          height: 120px;
+      }
+.esriLabel{
+    text-align:left;
+
+}
+
+     /* .bottomit {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          margin-top: 20px;
+          margin-bottom: 0px;
+      }*/
+      .navbar{
+          margin-top: 20px !important;
+          margin-bottom: 0;
+        
+      }
+      .row {
+          margin-top: 0px;
+          margin-bottom: 10px;
+      }
+      .navbar .brand, .navbar .nav > li > a {
+          color: #ffffff;
+      }
+
+          .navbar .brand, .navbar .nav > li > a:hover {
+              color: #F56E6E;
+          }
+
+/* From Diane*/
+/*.navbar-inverse {
+          background-image: linear-gradient(to bottom,#0079c1 0,rgb(36, 75, 150) 10);
+      }*/
+      .navbar-inverse {
+          background-image: linear-gradient(to bottom,#0079c1 0, #0079c1 100%);
+      }
+      /*Make hove on nav buttons yellow*/
+      .navbar .brand, .navbar .nav > li > a:hover { 
+          color: #F5EC6E;
+      }
+  </style>
+<script>
+
+
+    //Globals
+    var map;
+    var theServer = "54.215.12.164";
+    var Globals = {};
+    Globals.SelectedDataType = "";
+    Globals.DataTypeArray;
+    var optionsMainChart;
+    var chartMain;
+    var GlobalPass = {};
+    var ColorSeries = {};
+    require(["esri/map", "esri/arcgis/utils", "esri/dijit/LayerList", "esri/dijit/BasemapGallery", "dojo/domReady!"], function (Map, arcgisUtils, LayerList, BasemapGallery) {
+
+        Globals.LayerList = LayerList;
+ 
+  map = new Map("mapDiv", {
+    center: [-118, 34.5],
+    zoom: 5,
+    basemap: "topo"
+    
+  });
+
+  map.on("click", function (event) { mapClick(event); }); //for drawing
+
+  
+
+  $("#idTypeSelector li a").click(function () {
+      Globals.SelectedDataType = $(this).text();
+      alert("Victory");
+      //$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+      //$(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+  });
+
+
+ 
+  //$("#idApplication li a").click(function () {
+  //    alert($(this).text());
+  //    //$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+  //    //$(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+  //});
+  
+
+
+  //currentMap = map;
+  //parser.parse();
+  var basemapGallery = new BasemapGallery({
+      showArcGISBasemaps: true,
+      map: map
+  }, "basemapGallery");
+  basemapGallery.startup();
+  basemapGallery.on("error", function (msg) {
+      alert(msg);
+      console.log("basemap gallery error:  ", msg);
+  });
+
+  
+  //currentMap = map;
+  dynamicMainLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://" + theServer + "/arcgis/rest/services/IWFM/IWFM_wmas/MapServer/", {
+      "id": "IWFM Model",
+      "showAttribution": false
+  });
+
+    
+
+  //var layerDefs = [];
+  //layerDefs[6] = "Moonshed = 'No Name'";
+ // dynamicMainLayer.setLayerDefinitions(layerDefs);
+  //dynamicMainLayer.setVisibleLayers([1, 2, 3, 4, 5, 6, 7, 9]);
+    //dynamicLayer.setOpacity(.35);
+  map.addLayer(dynamicMainLayer);
+
+  //var layerList = new LayerList({
+  //    map: map,
+  //    showLegend: true,
+  //    showSubLayers: true,
+  //    showOpacitySlider: true,
+  //    layers: [dynamicMainLayer]
+  //},"layerList");
+  //layerList.startup();
+
+  //var myWidget = new LayerList({
+  //    map: map,
+  //    layers: [{
+  //        layer: dynamicMainLayer,
+  //        id: "testLayer",
+  //        button: "helpButton",
+  //        content: "horizontalSlider",
+  //        subLayers: true
+  //    }],
+  //    //layer: atlasLayer
+  //}, "layerList");
+
+  //myWidget.startup();
+
+
+  myWidget = new LayerList({
+      map: map,
+      showSubLayers: true,
+      showLegend: true,
+      showOpacitySlider: true,
+      layers: map._layers
+  }, "idDivLegend");
+  myWidget.startup();
+
+
+  // Set up colors
+  ColorSeries[0] = '#CC66CC';
+  ColorSeries[1] = '#0080FF';
+  ColorSeries[2] = '#FF1900';
+  ColorSeries[3] = '#00FF26';
+  ColorSeries[4] = '#FFD900';
+  ColorSeries[5] = '#F700FF';
+  ColorSeries[6] = '#000000';
+  GlobalPass.ColorSeries = ColorSeries;
+
+
+
+  // Initialize Chart
+ 
+  optionsMainChart = {
+
+      chart: {
+          renderTo: 'container',
+          zoomType: 'x', // can do xy
+          height: 500,
+          type: 'spline'
+
+      },
+      tooltip: {
+          crosshairs: [true, false],
+          formatter: function () {
+              return '<b>' + this.y + '</b><br/>' +
+                  Highcharts.dateFormat('%b-%e-%Y',
+                                        new Date(this.x))
+              ;
+          }
+
+      },
+      title: {
+          text: '',
+          align: 'left',
+          x: 90,
+          y: 30,
+          floating: true
+      },
+      xAxis: {
+          type: 'datetime',
+          ordinal: false
+          //minTickInterval: 24 * 3600 * 1000 * 28
+          //min: 0
+      },
+      yAxis: {
+          title: false
+
+      },
+      series: []
+
+  };
+
+
+ 
+        // Create the new chart passing it the options
+  chartMain = new Highcharts.Chart(optionsMainChart);
+ 
+  $("#tom").click(function () {
+      $.ajax({
+          url: "Tom.html",
+          dataType: "html",
+          success: function(data) {
+              $("#content").fadeOut(function() {
+                  $(this).html(data).slideDown();
+              });
+          }
+      });
+
+     
+
+  });
+
+});
+ 
+
+</script>
+  <body class="calcite">
+    <div class="container-fluid">
+
+      <!--<div >
+        <h1>Bootstrap grid examples</h1>
+        <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
+      </div>
+
+      <h3>Tessel Nation</h3>
+      <p>Get three equal-width columns <strong>starting at desktops and scaling to large desktops</strong>. On mobile devices, tablets and below, the columns will automatically stack.</p>-->
+      <div class="row " >
+        <div class="col-md-1  makeWhite text-center" style="height:50px" >
+		<!-- style="background-color: white; border:none"-->
+		<!--row-eq-height-->
+		<!--<img src="tessel128.png" alt="Heinzer">-->
+		<img src="dwr2.png">
+		
+		</div>
+		
+       <div class="col-md-2 makeWhite">
+	    
+	   <h3>IWFM C2VSim</h3>
+	   
+	   </div>
+          <div class="col-md-2 makeWhite">
+
+
+          </div>
+          <div class="col-md-3 makeWhite  bottomit ">
+              <nav role="navigation" class="navbar navbar-inverse">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                      <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                     
+                  </div>
+                  <!-- Collection of nav links, forms, and other content for toggling -->
+                  <div id="navbarCollapse" class="collapse navbar-collapse">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Base Maps <b class="caret"></b></a>
+                              <ul role="menu" class="dropdown-menu">
+                                  <li> <div id="basemapGallery"></div></li>
+                              </ul>
+                          </li>
+                          <li id="idTypeSelector" class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Select<b class="caret"></b></a>
+                              <ul role="menu" class="dropdown-menu">
+                                  <li><a href="#" id="idElementsType">Elements</a></li>
+                                  <li><a href="#" id="idSubregionsType">Subregions</a></li>
+                                  <li><a href="#" id="idNodesType">Nodes</a></li>
+                              </ul>
+                          </li>
+                          <li id="idApplication" class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Applications<b class="caret"></b></a>
+                              <ul role="menu" class="dropdown-menu">
+                                  <li><a href="#" class="aaf" id="idLegend">Legend</a></li>
+                                  <li><a href="#" class="aaf" id="idTimeSeries">Timeseries</a></li>
+                                  <li><a href="#" class="aaf" id="idAverages">Averages</a></li>
+                                  <li><a href="#" class="aaf" id="idGroundWaterLevels">Groundwater Levels</a></li>
+
+                                  <!--<li>
+                                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">Select<b class="caret"></b></a>
+                                      <ul role="menu" class="dropdown-menu">
+                                          <li><a href="#">Elements</a></li>
+                                          <li><a href="#">Subregions</a></li>
+                                          <li><a href="#">Nodes</a></li>
+                                      </ul>
+
+                                  </li>-->
+
+
+                              </ul>
+                          </li>
+                      
+                         
+                      </ul>
+
+                      <!--<form role="search" class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search" class="form-control">
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                </ul>-->
+                  </div>
+
+                
+
+              </nav>
+
+          </div>
+          <div class="col-md-2 makeWhite text-center">
+              <label id='idSelectResults'></label>
+              `
+          </div>
+      </div>
+    
+      <div id="content" class="row">
+	  
+	   
+     <div id="mapDiv" class="col-md-8" style="height: 600px"></div>
+	 <div class="col-md-4 text-center makeWhite">
+        <!--<div class="row">
+           
+        </div>-->
+
+
+	 <!--<div class="row">-->
+	 
+	 <!--<button type="button" class="btn btn-primary marginButton" onclick="GetRestData();">RestData</button>
+        <button type="button" class="btn btn-primary marginButton" onclick="GetDataTypeInfo()">DateTypes</button>
+	 <button type="button" class="btn btn-primary marginButton">Download</button>
+	 <button type="button" class="btn btn-primary marginButton">Download</button>-->
+	 
+        <!--<nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">IWFM   </a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#" id="idHome">Home</a></li>
+                    <li><a href="#" class="aaf" id="idLegend">Legend</a></li>
+                    <li><a href="#" class="aaf" id="idTimeseries">Timeseries</a></li>
+                    <li><a href="#" class="aaf" id="idOther">Other</a></li>
+                    <li><a href="#" class="aaf" id="idTest">Test</a></li>
+                </ul>
+            </div>
+        </nav>-->
+
+
+
+
+
+
+	 <!--</div>-->
+        <!--<div class="row makeWhite">
+            <div class="col-md-6 makeWhite">-->
+                <div id="contentArea">
+
+
+
+                    <div id="idDivLegend" class="hidden"></div>
+              
+
+               
+
+                <div id="idDivTimeseries" class="dropdown">
+                        <div class="row">
+                        
+                            <div class="col-sm-6 makeWhite">
+                                <h5 class="text-center">Feature Type</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-default dropdown-toggle text-center" type="button" id="menu1" data-toggle="dropdown">
+                                        Select
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" id="idFeatureTypeDropdown">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">SubRegions</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Elements</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nodes</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+                                    </ul>
+                                </div>
+                                </div><!--<div class="col-sm-3">-->
+                        </div><!--<div class="row">-->
+
+
+                    <div class="row">
+
+                        <div class="col-sm-6 makeWhite">
+                            <h5 class="text-center">Data Type</h5>
+                            <div class="btn-group">
+                                <button class="btn btn-default dropdown-toggle text-center" type="button" id="menu2" data-toggle="dropdown">
+                                    Select
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu"  id="idDataTypeDropdown">
+                               
+                                </ul>
+                            </div>
+                            </div><!--<div class="col-sm-3">-->
+                    </div><!--<div class="row">-->
+
+
+                    <div class="row">
+
+                        <div class="col-sm-6 makeWhite">
+                            <h5 class="text-center">Sub Data Type</h5>
+                            <div class="btn-group">
+                                <button class="btn btn-default dropdown-toggle text-center" type="button" id="menu3" data-toggle="dropdown">
+                                    Select
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" id="idSubDataTypeDropdown">
+
+
+
+                                </ul>
+                            </div>
+                        </div><!--<div class="col-sm-3">-->
+                    </div><!--<div class="row">-->
+
+
+
+                </div>
+      
+
+            </div><!--<div id="contentArea">-->
+
+
+
+</div>
+
+
+    </div> <!-- /container -->
+
+    <div class="row">
+          <div id="container"></div>
+    </div>
+          <div class="row">
+              <div id="info"></div>
+          </div>
+
+</div> <!--<div class="container-fluid">-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+</body>
+</html>

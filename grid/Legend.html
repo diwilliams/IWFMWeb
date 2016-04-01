@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+    <script src="https://js.arcgis.com/3.16/"></script>
+</head>
+<style>
+    #layerListPane {
+        width: 25%;
+    }
+
+    .esriLayer {
+        background-color: #fff;
+    }
+
+    .esriLayerList .esriList {
+        border-top: none;
+    }
+
+    .esriLayerList .esriTitle {
+        background-color: #fff;
+        border-bottom: none;
+    }
+
+    .esriLayerList .esriList ul {
+        background-color: #fff;
+    }
+</style>
+<script>
+    alert("loading legend");
+
+//    require([
+//    "esri/arcgis/utils",
+//    "esri/dijit/LayerList",
+//     ], function (
+//    arcgisUtils,
+//    LayerList
+//) {
+//        myWidget = new LayerList({
+//            map: map,
+//            showSubLayers: true,
+//            showLegend: true,
+//            showOpacitySlider: true,
+//            layers: map._layers
+//        }, "legendArea");
+//        myWidget.startup();
+
+//    });
+
+  
+    myWidget = new Globals.LayerList({
+                    map: map,
+                    showSubLayers: true,
+                    showLegend: true,
+                    showOpacitySlider: true,
+                    layers: map._layers
+                }, "legendArea");
+                myWidget.startup();
+
+      
+
+
+</script>
+<body>
+    <div id="legendArea"></div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+function PopulateDateTypeControl(sFeatureType) {
+
+
+    switch(sFeatureType)
+    {
+        case "CalibrationWell":
+            //$("#idDataTypeDropdown").append('<li><a>' + "Deep Percolation" + '</a></li>');
+
+            break;
+ //If (sLayerName = "CalibrationWell") Then
+
+ //   Call Get_Feature_Caption("Calibration_ID", FeatureID, FeatureCaption)
+ //   If (TotalFtrCnt = 1) Then
+ //   lblLayer.Text = "Calibration Well " & FeatureID(1) & " is selected."
+ //   Else
+ //   lblLayer.Text = "Calibration Wells " & FeatureCaption & " are selected."
+ //   End If
+ //   If Check_Tbl("Output_GWHydrograph") Then
+ //   Call Populate_UniqueLayers("Output_GWHydrograph", "Layer", "GWL Hydrograph", TotalFtrCnt, FeatureID)
+ //   End If
+
+        case "Element":
+            $("#idDataTypeDropdown").append('<li><a>' + "Land Use" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Pumping Input" + '</a></li>');  //Dont get this
+            $("#idDataTypeDropdown").append('<li><a>' + "Precipitation" + '</a></li>');
+            break;
+    //ElseIf (sLayerName = "Element") Then
+    //Call Get_Feature_Caption("Element_ID", FeatureID, FeatureCaption)
+    //If (TotalFtrCnt = 1) Then
+    //lblLayer.Text = "Element " & FeatureID(1) & " is selected."
+    //Else
+    //lblLayer.Text = "Elements " & FeatureCaption & " are selected."
+    //End If
+    //If Check_Tbl("TSData_LandUse") Then
+    //cmbTables.Items.Add("Land Use")
+    //End If
+    //If Check_Tbl("NTSData_ElementPump") Then
+    //If Check_Tbl("TSData_Pumping") Then
+            //cmbTables.Items.Add("Land Use")
+    //End If
+    //End If
+    //If Check_Tbl("TSData_Precipitation") Then
+    //cmbTables.Items.Add("Precipitation")
+    //End If
+
+        case "Subregion":
+            $("#idDataTypeDropdown").append('<li><a>' + "Groundwater Budget" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Land & Water Use Budget" + '</a></li>');  //Dont get this
+            $("#idDataTypeDropdown").append('<li><a>' + "Soil Moisture Budget" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Stream Budget" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Demand" + '</a></li>');  //Dont get this
+            $("#idDataTypeDropdown").append('<li><a>' + "Crop Area" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "ET" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Min Soil Mositure" + '</a></li>');  //Dont get this
+            $("#idDataTypeDropdown").append('<li><a>' + "Efficency" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Indoor Use" + '</a></li>');
+            break;
+    //ElseIf (sLayerName = "Subregion") Then
+    //Call Get_Feature_Caption("Subregion_ID", FeatureID, FeatureCaption)
+    //If (TotalFtrCnt = 1) Then
+    //lblLayer.Text = "Subregion " & FeatureID(1) & " is selected."
+    //Else
+    //lblLayer.Text = "Subregions " & FeatureCaption & " are selected."
+    //End If
+    //If Check_Tbl("Bud_GW") Then
+    //cmbTables.Items.Add("Groundwater Budget")
+    //End If
+    //If Check_Tbl("Bud_WU") Then
+    //cmbTables.Items.Add("Land & Water Use Budget")
+    //End If
+    //If Check_Tbl("Bud_Soil") Then
+    //cmbTables.Items.Add("Soil Moisture Budget")
+    //End If
+    //If Check_Tbl("Bud_Stream") Then
+    //cmbTables.Items.Add("Stream Budget")
+    //End If
+    //If Check_Tbl("TSData_Demand") Then
+    //cmbTables.Items.Add("Demand")
+    //End If
+    //If Check_Tbl("TSData_CropArea") Then
+    //cmbTables.Items.Add("Crop Area")
+    //End If
+    //If Check_Tbl("TSData_CropCharacteristics") Then
+    //cmbTables.Items.Add("ET")
+    //cmbTables.Items.Add("Min Soil Mositure")
+    //cmbTables.Items.Add("Efficency")
+    //End If
+    //If Check_Tbl("TSData_IndoorUse") Then
+    //cmbTables.Items.Add("Indoor Use")
+    //End If
+
+        case "StreamNode":
+            $("#idDataTypeDropdown").append('<li><a>' + "Stream Flow Hydrograph" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Stream Inflow" + '</a></li>');
+            $("#idDataTypeDropdown").append('<li><a>' + "Surfacewater Diversion" + '</a></li>');
+
+            break;
+    //ElseIf (sLayerName = "StreamNode") Then
+    //Call Get_Feature_Caption("StreamNode_ID", FeatureID, FeatureCaption)
+    //If (TotalFtrCnt = 1) Then
+    //lblLayer.Text = "Stream Node " & FeatureID(1) & " is selected."
+    //Else
+    //lblLayer.Text = "Stream Nodes " & FeatureCaption & " are selected."
+    //End If
+    //If Check_Tbl("Output_StreamHydrograph") Then
+    //blnStreamNode_Check = StreamNode_Check("Output_StreamHydrograph", "StreamNode_ID", TotalFtrCnt, FeatureID)
+    //If blnStreamNode_Check = True Then cmbTables.Items.Add("Stream Flow Hydrograph")
+    //End If
+    //If Check_Tbl("TSData_Inflow") Then
+    //blnStreamNode_Check = StreamNode_Check("TSData_Inflow", "StreamNode_ID", TotalFtrCnt, FeatureID)
+    //If blnStreamNode_Check = True Then cmbTables.Items.Add("Stream Inflow")
+    //End If
+
+    //If Check_Tbl("TSData_SWDV") Then
+    //blnStreamNode_Check = StreamNode_Check("NTSData_DiversionSpecification", "StreamNode_ID", TotalFtrCnt, FeatureID)
+    //If blnStreamNode_Check = True Then cmbTables.Items.Add("Surfacewater Diversion")
+    //End If
+    //If (cmbTables.Items.Count = 0) Then
+    //If (TotalFtrCnt = 1) Then
+    //MsgBox("The selected stream node does not have any time series data assigned to it!" & vbNewLine & "Please select a new stream node!", MsgBoxStyle.Critical, "WARNING!")
+    //blnTSGraphError = True
+    //Exit Sub
+    //ElseIf (TotalFtrCnt > 1) Then
+    //MsgBox("One or all of the selected stream nodes do not have any common time series data assigned to them!" & vbNewLine & "Please select a new stream node or stream nodes!", MsgBoxStyle.Critical, "WARNING!")
+    //blnTSGraphError = True
+    //Exit Sub
+    //End If
+    //End If
+
+        case "StreamReaches":
+
+            $("#idDataTypeDropdown").append('<li><a>' + "Stream Reach Budget" + '</a></li>');
+
+            break;
+
+    ElseIf (sLayerName = "StreamReaches") Then
+    Call Get_Feature_Caption("Reach_ID", FeatureID, FeatureCaption)
+    If (TotalFtrCnt = 1) Then
+    lblLayer.Text = "Stream Reach " & FeatureID(1) & " is selected."
+    Else
+    lblLayer.Text = "Stream Reaches " & FeatureCaption & " are selected."
+    End If
+    If Check_Tbl("Bud_Reach") Then cmbTables.Items.Add("Stream Reach Budget")
+
+
+        case "ProductionWell":
+
+            $("#idDataTypeDropdown").append('<li><a>' + "Well Pumping" + '</a></li>');
+
+            break;
+
+    //ElseIf (sLayerName = "ProductionWell") Then
+    //Call Get_Feature_Caption("Well_ID", FeatureID, FeatureCaption)
+    //If (TotalFtrCnt = 1) Then
+    //lblLayer.Text = "Production Well " & FeatureID(1) & " is selected."
+    //Else
+    //lblLayer.Text = "Production Wells " & FeatureCaption & " are selected."
+    //End If
+    //If Check_Tbl("TSData_Pumping") Then cmbTables.Items.Add("Well Pumping")
+
+        case "Small_Watersheds":
+
+            $("#idDataTypeDropdown").append('<li><a>' + "Small Watershed Budget" + '</a></li>');
+
+            break;
+
+
+    //ElseIf (sLayerName = "Small_Watersheds") Then
+    //Call Get_Feature_Caption("Watershed_ID", FeatureID, FeatureCaption)
+    //If (TotalFtrCnt = 1) Then
+    //lblLayer.Text = "Small Watershed " & FeatureID(1) & " is selected."
+    //Else
+    //lblLayer.Text = "Small Watersheds " & FeatureCaption & " are selected."
+    //End If
+    //If Check_Tbl("Bud_SmallWatershed") Then cmbTables.Items.Add("Small Watershed Budget")
+    //End If
+
+
+    }  //End Switch
+   
+} //function PopulateDateType() {

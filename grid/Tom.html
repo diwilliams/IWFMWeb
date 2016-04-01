@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<script>
+    var map2;
+    require(["esri/map", "esri/arcgis/utils", "esri/dijit/LayerList", "esri/dijit/BasemapGallery", "dojo/domReady!"], function (Map, arcgisUtils, LayerList, BasemapGallery) {
+
+        var theServer = "54.215.12.164";
+
+        map = new Map("map2", {
+            center: [-118, 34.5],
+            zoom: 5,
+            basemap: "topo"
+
+        });
+
+
+        //parser.parse();
+
+
+        var basemapGallery2 = new BasemapGallery({
+            showArcGISBasemaps: true,
+            map: map
+        }, "basemapGallery");
+        basemapGallery2.startup();
+        basemapGallery2.on("error", function (msg) {
+            alert(msg);
+            console.log("basemap gallery error:  ", msg);
+        });
+
+        //dynamicMainLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://" + theServer + "/arcgis/rest/services/IWFM/IWFM_wmas/MapServer/", {
+        //    "id": "IWFM Model",
+        //    "showAttribution": false
+        //});
+        //currentMap = map;
+
+    });
+
+    
+</script>
+<body>
+
+<h1>This is so cool</h1>
+
+<p>OH YEAH!</p>
+<div class="row">
+    
+<div id='map2' class="col-md-4"></div>
+
+</div>
+
+
+
+
+</body>
+</html>
